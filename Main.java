@@ -156,15 +156,16 @@ public class Main {
             }
         }
         
-        System.out.println(quiEstGagnant());
         System.out.println("Félicitations !!");
+        quiEstGagnant();
         board.afficher();
         
     }
 
 //=============================================================
     
-    public static String quiEstGagnant(){
+    public static void quiEstGagnant(){
+        boolean egalite = false;
         int[] points = {0,0,0,0};
         
         //on compte le nombre de points de chaque joueur
@@ -186,8 +187,29 @@ public class Main {
                 indice_max = m;
             }
         }
-        return "Le joueur "+(indice_max+1)+" gagne avec "+max+" points !";
+        //on verifie si il y a egalite
+        for (int k=0; k<4; k++){
+            if(points[k] == max && k!=indice_max){
+                egalite = true;
+                System.out.println("Il y a egalite entre le joueur "+(indice_max+1)+" et "+(k+1)+" avec "+(max)+" points");
+                points[k] = -1;
+            }
+        }
+        points[indice_max] = -1;
+        
+        if(egalite == false){
+            System.out.println("Le joueur "+(indice_max+1)+" gagne avec "+max+" points !");
+        }
+        //on affiche le score des autres joueurs
+        for(int i=0; i<nombrePlayer; i++){
+            if(points[i] != -1){
+                System.out.println("Le joueur "+(i+1)+" a "+(points[i])+" points");
+            }
+        }
     }
+    
+        
+    
     
     public static void ajoutPlayer(){
         //on ajoute des joueurs et on definit leurs paramètres 
